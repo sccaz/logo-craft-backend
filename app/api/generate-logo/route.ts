@@ -1,3 +1,4 @@
+// app/api/generate-logo/route.ts
 import { NextResponse } from "next/server";
 
 export async function POST(req: Request): Promise<Response> {
@@ -19,10 +20,14 @@ export async function POST(req: Request): Promise<Response> {
   } catch (error) {
     const message =
       error instanceof Error ? error.message : "Erreur inconnue";
-    console.error("Erreur serveur :", message);
     return NextResponse.json(
       { error: "Erreur serveur : " + message },
       { status: 500 }
     );
   }
+}
+
+// 👇 ajoute cette fonction pour forcer Next.js à reconnaître la route
+export async function GET() {
+  return NextResponse.json({ status: "OK" });
 }
