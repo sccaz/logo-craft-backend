@@ -1,9 +1,11 @@
+// app/api/generate-logo/route.ts
+
 import { NextResponse } from "next/server";
 
-export async function POST(req: Request): Promise<Response> {
+export async function POST(req: Request) {
   try {
     const body = await req.json();
-    const prompt = body.prompt as string;
+    const prompt: string = body.prompt;
 
     if (!prompt || typeof prompt !== "string") {
       return NextResponse.json(
@@ -17,10 +19,9 @@ export async function POST(req: Request): Promise<Response> {
       prompt,
     });
   } catch (error) {
-    const message =
-      error instanceof Error ? error.message : "Erreur inconnue";
+    console.error("Erreur serveur :", error);
     return NextResponse.json(
-      { error: "Erreur serveur : " + message },
+      { error: "Erreur serveur" },
       { status: 500 }
     );
   }
