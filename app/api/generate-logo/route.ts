@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 export async function POST(req: Request): Promise<Response> {
   try {
     const body = await req.json();
-    const prompt: string = body.prompt;
+    const prompt = body.prompt as string;
 
     if (!prompt || typeof prompt !== "string") {
       return NextResponse.json(
@@ -16,10 +16,13 @@ export async function POST(req: Request): Promise<Response> {
       message: "Prompt reçu avec succès",
       prompt,
     });
-  } catch (error: unknown) {
-    console.error("Erreur serveur :", error);
+  } catch (error) {
     const message =
       error instanceof Error ? error.message : "Erreur inconnue";
-    return NextResponse.json({ error: "Erreur serveur : " + message }, { status: 500 });
+    console.error("Erreur serveur :", message);
+    return NextResponse.json(
+      { error: "Erreur serveur : " + message },
+      { status: 500 }
+    );
   }
 }
