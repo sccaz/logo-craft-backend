@@ -1,3 +1,5 @@
+// pages/api/generate-logo.ts
+
 import type { NextApiRequest, NextApiResponse } from 'next';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
@@ -11,8 +13,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     return res.status(400).json({ error: 'Prompt manquant' });
   }
 
-  // Remplacer ceci par ton appel réel à l'API Leonardo AI
-  const imageUrl = `https://dummyimage.com/600x400/000/fff&text=${encodeURIComponent(prompt)}`;
-
-  res.status(200).json({ imageUrl });
+  // Simulation de réponse OK
+  return res.status(200).json({ message: 'Logo généré (fake)', prompt });
 }
